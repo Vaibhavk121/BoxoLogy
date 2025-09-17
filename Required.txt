@@ -1,0 +1,4 @@
+*Boxology*
+To get the number of containers for a certain number of different dimensions
+
+
