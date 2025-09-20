@@ -44,7 +44,7 @@ const BoxFittingApp: React.FC = () => {
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h2>📦 Box Fitting Calculator</h2>
+      <h2>Boxology</h2>
 
       {/* Container Inputs */}
       <h4>Container Size (H × W × L)</h4>
