@@ -76,19 +76,19 @@ let currentContainer: Container = { dimensions: containerDim, boxes: [] };
         if (currentContainer.boxes.length > 0) {
           const last = currentContainer.boxes[currentContainer.boxes.length - 1];
           pos = {
-            x: last.position.x + last.orientation.length,
-            y: last.position.y,
+            x: last.position.x,
+            y: last.position.y + last.orientation.height,  // Y first (height)
             z: last.position.z,
           };
 
-          if (pos.x + orientation.length > containerDim.length) {
-            pos.x = 0;
-            pos.y = last.position.y + last.orientation.width;
-          }
-          if (pos.y + orientation.width > containerDim.width) {
-            pos.x = 0;
+          if (pos.y + orientation.height > containerDim.height) {
             pos.y = 0;
-            pos.z = last.position.z + last.orientation.height;
+            pos.z = last.position.z + last.orientation.width;  // Then Z (depth)
+          }
+          if (pos.z + orientation.width > containerDim.width) {
+            pos.y = 0;
+            pos.z = 0;
+            pos.x = last.position.x + last.orientation.length;  // Finally X (length)
           }
         }
 
@@ -99,8 +99,8 @@ let currentContainer: Container = { dimensions: containerDim, boxes: [] };
 
         if (
           pos.x + orientation.length <= containerDim.length &&
-          pos.y + orientation.width <= containerDim.width &&
-          pos.z + orientation.height <= containerDim.height
+          pos.y + orientation.height <= containerDim.height &&  // Updated boundary check
+          pos.z + orientation.width <= containerDim.width
         ) {
           currentContainer.boxes.push({
             boxId: box.id,
